@@ -175,3 +175,13 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+
+/* not Found Page  */
+.not-found {
+  text-align: center;
+  width: 75%;
+  height: 500px;
+  margin: auto;
+  font-size: 80px;
+  font-weight: bolder;
+}
