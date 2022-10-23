@@ -1,16 +1,26 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Book from "./Book";
 
-export const BookShelf = ({ bookShelfTitle }) => {
+export const BookShelf = ({
+  bookShelfTitle,
+  bookShelfBooks,
+  onChangeShelfType,
+}) => {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{bookShelfTitle}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
-          <Book bookShelfTitle={bookShelfTitle} />
-          <Book bookShelfTitle={bookShelfTitle} />
-          <Book bookShelfTitle={bookShelfTitle} />
+          {bookShelfBooks.length > 0 ? (
+            bookShelfBooks.map((book) => (
+              <li key={book.id}>
+                <Book book={book} onChangingShelf={onChangeShelfType} />
+              </li>
+            ))
+          ) : (
+            <div className="no-current-books">no books here in this shelf</div>
+          )}
         </ol>
       </div>
     </div>
@@ -18,6 +28,7 @@ export const BookShelf = ({ bookShelfTitle }) => {
 };
 BookShelf.prototype = {
   bookShelfTitle: PropTypes.string.isRequired,
+  bookShelfBooks: PropTypes.array.isRequired,
 };
 export default BookShelf;
 

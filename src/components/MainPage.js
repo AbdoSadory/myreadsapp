@@ -1,7 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import * as BooksAPI from "../BooksAPI";
 import BookShelf from "./BookShelf";
-export const MainPage = () => {
+export const MainPage = ({ booksData, onChangeShelfType }) => {
+  let books = booksData;
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -9,12 +11,23 @@ export const MainPage = () => {
       </div>
       <div className="list-books-content">
         <div>
-          {/* Shelf */}
-          <BookShelf bookShelfTitle="Currently Reading" />
-          {/* Shelf */}
-          <BookShelf bookShelfTitle="Want to Read" />
-          {/* Shelf */}
-          <BookShelf bookShelfTitle="Read" />
+          <BookShelf
+            bookShelfTitle="Currently Reading"
+            bookShelfBooks={books.filter(
+              (book) => book.shelf === "currentlyReading"
+            )}
+            onChangeShelfType={onChangeShelfType}
+          />
+          <BookShelf
+            bookShelfTitle="Want to Read"
+            bookShelfBooks={books.filter((book) => book.shelf === "wantToRead")}
+            onChangeShelfType={onChangeShelfType}
+          />
+          <BookShelf
+            bookShelfTitle="Read"
+            bookShelfBooks={books.filter((book) => book.shelf === "read")}
+            onChangeShelfType={onChangeShelfType}
+          />
         </div>
       </div>
       <div className="open-search">
