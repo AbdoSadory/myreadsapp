@@ -12,7 +12,6 @@ function App() {
     const getShelfBooks = async () => {
       const res = await BooksAPI.getAll();
       setBooks(res);
-      console.log(res);
     };
     getShelfBooks();
   }, []);
@@ -33,7 +32,13 @@ function App() {
             <MainPage booksData={books} onChangeShelfType={changeShelf} />
           }
         />
-        <Route exact path="/search" element={<SearchPage />} />
+        <Route
+          exact
+          path="/search"
+          element={
+            <SearchPage booksData={books} onChangeShelfType={changeShelf} />
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

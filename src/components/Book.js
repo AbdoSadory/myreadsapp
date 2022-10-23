@@ -1,6 +1,14 @@
-import React from "react";
+import { React, useState } from "react";
+import PropTypes from "prop-types";
 
 export const Book = ({ book, onChangingShelf }) => {
+  const [value, setValue] = useState("none");
+
+  const changingShelfFromSearchPage = (event) => {
+    setValue(event.target.value);
+    onChangingShelf(book, event.target.value);
+  };
+
   return (
     <div className="book">
       <div className="book-top">
@@ -9,17 +17,19 @@ export const Book = ({ book, onChangingShelf }) => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url(${book.imageLinks.thumbnail})`,
+            backgroundImage: book.imageLinks
+              ? `url(${book.imageLinks.thumbnail})`
+              : "",
           }}
         ></div>
         <div className="book-shelf-changer">
           <select
-            onChange={(event) => onChangingShelf(book, event.target.value)}
-            value={book.shelf ? book.shelf : "none"}
+            onChange={(event) => {
+              changingShelfFromSearchPage(event);
+            }}
+            value={book.shelf ? book.shelf : value}
           >
-            <option value="none" disabled>
-              Move to...
-            </option>
+            <option disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
             <option value="read">Read</option>
@@ -27,10 +37,13 @@ export const Book = ({ book, onChangingShelf }) => {
           </select>
         </div>
       </div>
-      <div className="book-title">{book.title}</div>
-      <div className="book-authors">{book.authors}</div>
+      <div className="book-title">{book.title || "no title"}</div>
+      <div className="book-authors">{book.authors || "no authors"}</div>
     </div>
   );
 };
-
+Book.prototype = {
+  book: PropTypes.object.isRequired,
+  onChangingShelf: PropTypes.func.isRequired,
+};
 export default Book;

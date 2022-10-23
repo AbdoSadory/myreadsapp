@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { React, useState, useEffect } from "react";
-import * as BooksAPI from "../BooksAPI";
+import { React } from "react";
+import PropTypes from "prop-types";
 import BookShelf from "./BookShelf";
 export const MainPage = ({ booksData, onChangeShelfType }) => {
   let books = booksData;
@@ -35,5 +35,9 @@ export const MainPage = ({ booksData, onChangeShelfType }) => {
       </div>
     </div>
   );
+};
+MainPage.prototype = {
+  booksData: PropTypes.object.isRequired,
+  onChangeShelfType: PropTypes.func.isRequired,
 };
 export default MainPage;

@@ -9,7 +9,8 @@ The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ### `Detials`
-It consists of 2 pages (MainPage and SearchPage)
+= It consists of 2 pages (MainPage and SearchPage)
+= The Project is divided onto usable components [BookShelf,Book]
 
 
 # Enjoy
