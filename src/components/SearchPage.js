@@ -21,8 +21,19 @@ export const SearchPage = ({ booksData, onChangeShelfType }) => {
         await BooksAPI.search(input, 20)
           .then((res) => {
             // if the res object id is in the main books, add shelf type to the object
-            for (const book of res) {
-              book.id in mainBooksIds && (book.shelf = mainBooksIds[book.id]);
+            // for (const book of res) {
+            //   book.id in mainBooksIds && (book.shelf = mainBooksIds[book.id]);
+            // }
+            for (const searchBook of res) {
+              for (const shelfBook of booksData) {
+                if (searchBook.id === shelfBook.id) {
+                  BooksAPI.get(searchBook.id).then((data) => {
+                    data.shelf = shelfBook.shelf;
+                  });
+                  searchBook.shelf = shelfBook.shelf;
+                  setSearchResult(res);
+                }
+              }
             }
             setSearchResult(res);
           })
